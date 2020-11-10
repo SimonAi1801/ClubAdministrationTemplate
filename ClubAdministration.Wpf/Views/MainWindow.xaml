@@ -10,5 +10,40 @@
         d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
         Title="Club Administration" Height="450" Width="291.053">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">Section:</Label>
+        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ...}"
+                  DisplayMemberPath="SectionName" SelectedValuePath="SectionName" SelectedItem="{Binding SelectedSection}">
+        </ComboBox>
+        <!--doubleClick-->
+        <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" IsReadOnly="True" ItemsSource="{Binding Members}" AutoGenerateColumns="False" SelectedItem="{Binding CurrentMemberSection}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Lastname" MinWidth="60" Binding="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Firstname" MinWidth="60" Binding="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Sections" MinWidth="60" Binding="{Binding Path=CountOfSections, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Command="{Binding CmdEditMemberCommand}"
+                Content="{Binding Path=CurrentMemberSection.Member.Fullname}" ContentStringFormat="Member{}{0} bearbeiten}"/>
+    </Grid>
   
 </controls:MetroWindow>

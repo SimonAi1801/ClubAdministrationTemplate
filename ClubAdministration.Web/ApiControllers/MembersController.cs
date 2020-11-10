@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace ClubAdministration.Web.ApiControllers
 {
-  /// <summary>
-  /// API-Controller für die Abfrage von Mitgliedern
-  /// </summary>
-  [Route("api/[controller]")]
-  [ApiController]
-  public class MembersController : ControllerBase
-  {
-    private readonly IUnitOfWork _unitOfWork;
-
     /// <summary>
-    /// Constructor mit DI
+    /// API-Controller für die Abfrage von Mitgliedern
     /// </summary>
-    /// <param name="unitOfWork"></param>
-    public MembersController(IUnitOfWork unitOfWork)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MembersController : ControllerBase
     {
-      _unitOfWork = unitOfWork;
-    }
+        private readonly IUnitOfWork _unitOfWork;
+
+        /// <summary>
+        /// Constructor mit DI
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        public MembersController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         /// <summary>
         /// Liefert alle Namen der Mitglieder
@@ -31,7 +31,7 @@ namespace ClubAdministration.Web.ApiControllers
         // GET: api/Categories
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<string[]>> GetAllMemberNames() 
+        public async Task<ActionResult<string[]>> GetAllMemberNames()
         => await _unitOfWork.MemberRepository
                             .GetAllAsync();
 
@@ -48,7 +48,8 @@ namespace ClubAdministration.Web.ApiControllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(string lastName, string firstName)
         {
-            var sections = await _unitOfWork.MemberSectionRepository.GetSectionsByMemberName(lastName, firstName);
+            var sections = await _unitOfWork.MemberSectionRepository
+                                            .GetSectionsByMemberName(lastName, firstName);
 
             if (sections == null)
             {
@@ -57,5 +58,5 @@ namespace ClubAdministration.Web.ApiControllers
 
             return Ok(sections);
         }
-  }
+    }
 }
