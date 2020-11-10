@@ -24,26 +24,38 @@ namespace ClubAdministration.Web.ApiControllers
       _unitOfWork = unitOfWork;
     }
 
-    /// <summary>
-    /// Liefert alle Namen der Mitglieder
-    /// </summary>
-    /// <response code="200">Die Abfrage war erfolgreich.</response>
-    // GET: api/Categories
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public Task<ActionResult<string[]>> GetAllMemberNames() => throw new NotImplementedException();
+        /// <summary>
+        /// Liefert alle Namen der Mitglieder
+        /// </summary>
+        /// <response code="200">Die Abfrage war erfolgreich.</response>
+        // GET: api/Categories
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<string[]>> GetAllMemberNames() 
+        => await _unitOfWork.MemberRepository
+                            .GetAllAsync();
 
 
-    /// <summary>
-    /// Spezialroute zum Abfragen von Sektionen eines Mitglieds
-    /// </summary>
-    /// <param name="lastName"></param>
-    /// <param name="firstName"></param>
-    /// <returns></returns>
-    [HttpGet()]
-    [Route("{lastName}/{firstName}/sections")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public Task<IActionResult> Get(string lastName, string firstName) => throw new NotImplementedException();
+        /// <summary>
+        /// Spezialroute zum Abfragen von Sektionen eines Mitglieds
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
+        [HttpGet()]
+        [Route("{lastName}/{firstName}/sections")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(string lastName, string firstName)
+        {
+            var sections = await _unitOfWork.MemberSectionRepository.GetSectionsByMemberName(lastName, firstName);
+
+            if (sections == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(sections);
+        }
   }
 }
