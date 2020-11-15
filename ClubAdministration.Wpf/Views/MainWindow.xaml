@@ -30,20 +30,23 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">Section:</Label>
-        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ...}" Margin="5,5,5,5"
-                  DisplayMemberPath="SectionName" SelectedValuePath="SectionName" SelectedItem="{Binding SelectedSection}">
+        <ComboBox Grid.Row="1" Grid.Column="3" 
+                  ItemsSource="{Binding Sections}" 
+                  Margin="5,5,5,5"
+                  DisplayMemberPath="Name" 
+                  SelectedItem="{Binding SelectedSection}">
         </ComboBox>
         <!--doubleClick-->
-        <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" IsReadOnly="True" ItemsSource="{Binding Members}" AutoGenerateColumns="False" SelectedItem="{Binding CurrentMemberSection}">
+        <DataGrid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" IsReadOnly="True" ItemsSource="{Binding Members}" SelectedItem="{Binding SelectedMember}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lastname" MinWidth="60" Binding="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Firstname" MinWidth="60" Binding="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Sections" MinWidth="60" Binding="{Binding Path=CountOfSections, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Sections" MinWidth="60" Binding="{Binding Path=CountSections, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Command="{Binding CmdEditMemberCommand}"
-                Content="{Binding Path=CurrentMemberSection.Member.Fullname}" ContentStringFormat="Member{}{0} bearbeiten}"/>
+                Content="{Binding Path=SelectedMember.FullName}"/> 
     </Grid>
   
 </controls:MetroWindow>

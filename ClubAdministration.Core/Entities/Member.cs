@@ -6,44 +6,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClubAdministration.Core.Entities
 {
-    public class Member : EntityObject, INotifyPropertyChanged
+    public class Member : EntityObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private string _firstName;
-        private string _lastName;
-        [Required]
-        [MinLength(2, ErrorMessage = "FirstNames minimum length is 2")]
-        public string FirstName
-        {
-            get => _firstName;
-            set 
-            { 
-                _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
-            }
-        }
 
         [Required]
         [MinLength(2, ErrorMessage = "FirstNames minimum length is 2")]
-        public string LastName
-        {
-            get => _lastName;
-            set 
-            { 
-                _lastName = value;
-                OnPropertyChanged(nameof(LastName));
-            }
-        }
+        public string FirstName { get; set; }
 
-        public string FullName => $"{_firstName} {_lastName}";
+        [Required]
+        [MinLength(2, ErrorMessage = "Lastname minimum length is 2")]
+        public string LastName { get; set; }
 
         public ICollection<MemberSection> MemberSections { get; set; }
 
         public override string ToString() => $"Id: {Id}; LastName: {LastName}; FirstName: {FirstName}; MemberSections: {MemberSections?.Count}";
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

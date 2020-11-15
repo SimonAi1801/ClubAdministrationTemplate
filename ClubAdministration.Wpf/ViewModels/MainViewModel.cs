@@ -16,32 +16,10 @@ namespace ClubAdministration.Wpf.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private string _lastName;
-        private string _firstName;
         private ObservableCollection<Section> _sections;
         private ObservableCollection<MemberDto> _members;
         private MemberDto _selectedMember;
         private Section _selectedSection;
-
-        public string LastName
-        {
-            get => _lastName;
-            set
-            {
-                _lastName = value;
-                OnPropertyChanged(nameof(LastName));
-            }
-        }
-
-        public string FirstName
-        {
-            get => _firstName;
-            set
-            {
-                _firstName = value;
-                OnPropertyChanged(nameof(FirstName));
-            }
-        }
 
         public ObservableCollection<Section> Sections
         {
@@ -77,10 +55,29 @@ namespace ClubAdministration.Wpf.ViewModels
 
         public Section SelectedSection
         {
-            get { return _selectedSection; }
-            set { _selectedSection = value; }
+            get => _selectedSection;
+            set
+            {
+                _selectedSection = value;
+                OnPropertyChanged(nameof(SelectedSection));
+                ChangeSection().ContinueWith(_ => { });
+            }
         }
 
+        private async Task ChangeSection()
+        {
+            if (SelectedSection == null)
+            {
+                return;
+            }
+
+            using (IUnitOfWork uow = new UnitOfWork())
+            {
+                var members = await uow.MemberRepository.GetMembersBySectionIdAsync(SelectedSection.Id);
+                Members = new ObservableCollection<MemberDto>(members);
+                SelectedMember = members.FirstOrDefault();
+            }
+        }
 
         public MainViewModel(IWindowController windowController) : base(windowController)
         {
