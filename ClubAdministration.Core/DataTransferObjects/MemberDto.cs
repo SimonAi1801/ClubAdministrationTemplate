@@ -12,7 +12,6 @@ namespace ClubAdministration.Core.DataTransferObjects
 
         public int Id { get; set; }
 
-
         public string FirstName
         {
             get => _firstName;

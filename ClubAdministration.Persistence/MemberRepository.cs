@@ -42,6 +42,7 @@ namespace ClubAdministration.Persistence
                    .GroupBy(m => m.Member)
                    .Select((_, idx) => new MemberDto
                    {
+                       Id = _.Key.Id,
                        FirstName = _.Key.FirstName,
                        LastName = _.Key.LastName,
                        CountSections = _.Key.MemberSections.Where(ms => ms.MemberId == _.Key.Id).Count()

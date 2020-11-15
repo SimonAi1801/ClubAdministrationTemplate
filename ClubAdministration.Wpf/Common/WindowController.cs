@@ -21,7 +21,7 @@ namespace ClubAdministration.Wpf.Common
 
         MainViewModel _ => new MainWindow(),
 
-        EditMemberViewModel _ => new EditMemberWindow();
+        EditMemberViewModel _ => new EditMemberWindow(),
 
         // default -> InvalidOperationException
         _ => throw new InvalidOperationException($"Unbekanntes ViewModel '{viewModel}'"),
