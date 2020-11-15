@@ -4,6 +4,7 @@ using ClubAdministration.Core.Entities;
 using ClubAdministration.Persistence;
 using ClubAdministration.Wpf.Common;
 using ClubAdministration.Wpf.Common.Contracts;
+using ClubAdministration.Wpf.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ClubAdministration.Wpf.ViewModels
 {
@@ -111,6 +113,22 @@ namespace ClubAdministration.Wpf.ViewModels
             var viewModel = new MainViewModel(windowController);
             await viewModel.LoadDataAsync();
             return viewModel;
+        }
+
+        private ICommand _cmdEditMemberCommand;
+
+        public ICommand CmdEditMemberCommand
+        {
+            get 
+            {
+                if (_cmdEditMemberCommand == null)
+                {
+                    _cmdEditMemberCommand = new RelayCommand(
+                        execute: _ => this.Controller.ShowWindow(new EditMemberViewModel(Controller, SelectedMember), true),
+                        canExecute: _ => SelectedMember != null);
+                }
+                return _cmdEditMemberCommand; 
+            }
         }
     }
 }
