@@ -11,7 +11,6 @@ namespace ClubAdministration.Core.Entities
         public event PropertyChangedEventHandler PropertyChanged;
         private string _firstName;
         private string _lastName;
-
         [Required]
         [MinLength(2, ErrorMessage = "FirstNames minimum length is 2")]
         public string FirstName

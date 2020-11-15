@@ -1,4 +1,5 @@
-﻿using ClubAdministration.Core.Entities;
+﻿using ClubAdministration.Core.DataTransferObjects;
+using ClubAdministration.Core.Entities;
 using System.Threading.Tasks;
 
 namespace ClubAdministration.Core.Contracts
@@ -9,7 +10,12 @@ namespace ClubAdministration.Core.Contracts
 
         void Update(Member member);
 
-        Task<string[]> GetAllAsync();
+        Task<string[]> GetAllNamesAsync();
+
+        Task<Member[]> GetAllAsync();
+
+        Task<MemberDto[]> GetMembersBySectionIdAsync(int id);
+
 
     }
 }

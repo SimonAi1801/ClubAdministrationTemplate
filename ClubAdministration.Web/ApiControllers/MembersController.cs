@@ -1,4 +1,5 @@
 ﻿using ClubAdministration.Core.Contracts;
+using ClubAdministration.Core.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,7 +34,7 @@ namespace ClubAdministration.Web.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<string[]>> GetAllMemberNames()
         => await _unitOfWork.MemberRepository
-                            .GetAllAsync();
+                            .GetAllNamesAsync();
 
 
         /// <summary>
@@ -58,5 +59,12 @@ namespace ClubAdministration.Web.ApiControllers
 
             return Ok(sections);
         }
+
+        [HttpGet]
+        [Route("/AllMembers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Member[]>> GetAllMembers()
+        => await _unitOfWork.MemberRepository
+                    .GetAllAsync();
     }
 }

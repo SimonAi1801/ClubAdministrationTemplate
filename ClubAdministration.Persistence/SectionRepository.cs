@@ -1,4 +1,7 @@
 ﻿using ClubAdministration.Core.Contracts;
+using ClubAdministration.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace ClubAdministration.Persistence
 {
@@ -10,5 +13,8 @@ namespace ClubAdministration.Persistence
     {
       _dbContext = dbContext;
     }
-  }
+
+        public async Task<Section[]> GetAllAsync()
+        => await _dbContext.Sections.ToArrayAsync();
+    }
 }

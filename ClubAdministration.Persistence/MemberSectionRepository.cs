@@ -1,4 +1,5 @@
 ﻿using ClubAdministration.Core.Contracts;
+using ClubAdministration.Core.DataTransferObjects;
 using ClubAdministration.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace ClubAdministration.Persistence
         public async Task AddRangeAsync(IEnumerable<MemberSection> memberSections)
           => await _dbContext.AddRangeAsync(memberSections);
 
+
+
         public async Task<string[]> GetSectionsByMemberName(string lastName, string firstName)
         => await _dbContext.MemberSections
                            .Include(ms => ms.Member)
@@ -27,5 +30,7 @@ namespace ClubAdministration.Persistence
                                   ms.Member.FirstName.Equals(firstName))
                            .Select(s => s.Section.Name)
                            .ToArrayAsync();
+
+
     }
 }

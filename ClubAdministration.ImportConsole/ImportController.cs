@@ -31,12 +31,12 @@ namespace ClubAdministration.ImportConsole
 
 
             var memberSections = matrix
-                                        .Select(line => new MemberSection()
-                                        {
-                                            Member = members.Single(m => m.LastName.Equals(line[0]) && m.FirstName.Equals(line[1])),
-                                            Section = sections.Single(s => s.Name.Equals(line[2]))
-                                        })
-                                        .ToArray();
+                                .Select(line => new MemberSection()
+                                {
+                                    Member = members.Single(m => m.LastName.Equals(line[0]) && m.FirstName.Equals(line[1])),
+                                    Section = sections.Single(s => s.Name.Equals(line[2]))
+                                })
+                                .ToArray();
             return memberSections;
         }
 

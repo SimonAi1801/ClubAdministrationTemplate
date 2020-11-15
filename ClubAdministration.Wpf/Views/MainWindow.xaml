@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">Section:</Label>
-        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ...}"
+        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding ...}" Margin="5,5,5,5"
                   DisplayMemberPath="SectionName" SelectedValuePath="SectionName" SelectedItem="{Binding SelectedSection}">
         </ComboBox>
         <!--doubleClick-->
